@@ -18,11 +18,11 @@ import "@openzeppelin/contracts/math/Math.sol";
 import {PausableUpgradeable as Pausable} from "@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol";
 import {OwnableUpgradeable as Ownable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol";
-import "../interfaces/events/EventReceiver.sol";
+import "../interfaces/events/IEventReceiver.sol";
 import "../interfaces/structs/UserVotePayload.sol";
 
 // solhint-disable var-name-mixedcase
-contract VoteTracker is Initializable, EventReceiver, IVoteTracker, Ownable, Pausable {
+contract VoteTracker is Initializable, IEventReceiver, IVoteTracker, Ownable, Pausable {
     using ECDSA for bytes32;
     using SafeMath for uint256;
     using EnumerableSet for EnumerableSet.Bytes32Set;
@@ -93,6 +93,40 @@ contract VoteTracker is Initializable, EventReceiver, IVoteTracker, Ownable, Pau
 
     mapping(address => bool) public override proxySubmitters;
 
+
+
+    address public eventProxy;
+
+    event ProxyAddressSet(address proxyAddress);
+
+    function init(address eventProxyAddress) public initializer {
+        require(eventProxyAddress != address(0), "INVALID_ROOT_PROXY");
+
+        _setEventProxyAddress(eventProxyAddress);
+    }
+
+    /// @notice Receive an encoded event from a contract on a different chain
+    /// @param sender Contract address of sender on other chain
+    /// @param eventType Encoded event type
+    /// @param data Event Event data
+    function onEventReceive(
+        address sender,
+        bytes32 eventType,
+        bytes calldata data
+    ) external override {
+        require(msg.sender == eventProxy, "EVENT_PROXY_ONLY");
+
+        _onEventReceive(sender, eventType, data);
+    }
+
+    /// @notice Configures the contract that can send events to this contract
+    /// @param eventProxyAddress New sender address
+    function _setEventProxyAddress(address eventProxyAddress) private {
+        eventProxy = eventProxyAddress;
+
+        emit ProxyAddressSet(eventProxy);
+    }
+
     // solhint-disable-next-line func-visibility
     function initialize(
         address eventProxy,
@@ -106,9 +140,7 @@ contract VoteTracker is Initializable, EventReceiver, IVoteTracker, Ownable, Pau
 
         __Ownable_init_unchained();
         __Pausable_init_unchained();
-
-        EventReceiver receiver = EventReceiver(address(this));
-        receiver.init(eventProxy);
+        init(eventProxy);
         settings.voteSessionKey = initialVoteSession;
         settings.balanceTrackerAddress = balanceTracker;
 
@@ -383,7 +415,7 @@ contract VoteTracker is Initializable, EventReceiver, IVoteTracker, Ownable, Pau
         address,
         bytes32 eventType,
         bytes calldata data
-    ) internal virtual override {
+    ) internal virtual {
         if (eventType == EVENT_TYPE_CYCLECOMPLETE) {
             _onCycleRollover(data);
         } else if (

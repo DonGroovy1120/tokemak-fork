@@ -10,9 +10,9 @@ import "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol";
 import "../interfaces/IBalanceTracker.sol";
 import "../interfaces/events/BalanceUpdateEvent.sol";
 import "../interfaces/events/EventWrapper.sol";
-import "../interfaces/events/EventReceiver.sol";
+import "../interfaces/events/IEventReceiver.sol";
 
-contract BalanceTracker is EventReceiver, IBalanceTracker, Ownable {
+contract BalanceTracker is IEventReceiver, IBalanceTracker, Ownable {
     using SafeMath for uint256;
 
     bytes32 public constant EVENT_TYPE_DEPOSIT = bytes32("Deposit");
@@ -27,9 +27,43 @@ contract BalanceTracker is EventReceiver, IBalanceTracker, Ownable {
     mapping(address => uint256) public totalTokenBalances;
 
     //solhint-disable-next-line no-empty-blocks, func-visibility
+
+
+    address public eventProxy;
+
+    event ProxyAddressSet(address proxyAddress);
+
+    function init(address eventProxyAddress) public initializer {
+        require(eventProxyAddress != address(0), "INVALID_ROOT_PROXY");
+
+        _setEventProxyAddress(eventProxyAddress);
+    }
+
+    /// @notice Receive an encoded event from a contract on a different chain
+    /// @param sender Contract address of sender on other chain
+    /// @param eventType Encoded event type
+    /// @param data Event Event data
+    function onEventReceive(
+        address sender,
+        bytes32 eventType,
+        bytes calldata data
+    ) external override {
+        require(msg.sender == eventProxy, "EVENT_PROXY_ONLY");
+
+        _onEventReceive(sender, eventType, data);
+    }
+
+    /// @notice Configures the contract that can send events to this contract
+    /// @param eventProxyAddress New sender address
+    function _setEventProxyAddress(address eventProxyAddress) private {
+        eventProxy = eventProxyAddress;
+
+        emit ProxyAddressSet(eventProxy);
+    }
+
     function initialize(address eventProxy) public initializer { 
         __Ownable_init_unchained();
-        EventReceiver.init(eventProxy);
+        init(eventProxy);
     }
 
     function getBalance(address account, address[] calldata tokens)
@@ -79,7 +113,7 @@ contract BalanceTracker is EventReceiver, IBalanceTracker, Ownable {
         }
     }
 
-    function _onEventReceive(address, bytes32 eventType, bytes calldata data) internal override virtual  {
+    function _onEventReceive(address, bytes32 eventType, bytes calldata data) internal virtual  {
         require(eventType == EVENT_TYPE_DEPOSIT || 
             eventType == EVENT_TYPE_TRANSFER ||
             eventType == EVENT_TYPE_WITHDRAW || 
