@@ -19,7 +19,7 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
 
-  // We get the contract to deploy
+  // // We get the contract to deploy
   // const Toke = await hre.ethers.getContractFactory("Toke");
   // const toke = await Toke.deploy();
   // await toke.deployed();
@@ -35,10 +35,10 @@ async function main() {
   // await addressRegistry.deployed();
   // console.log("addressRegistry deployed to:", addressRegistry.address);
 
-  const BalanceTracker = await hre.ethers.getContractFactory("BalanceTracker");
-  const balanceTracker = await BalanceTracker.deploy();
-  await balanceTracker.deployed();
-  console.log("balanceTracker deployed to:", balanceTracker.address);
+  // const BalanceTracker = await hre.ethers.getContractFactory("BalanceTracker");
+  // const balanceTracker = await BalanceTracker.deploy();
+  // await balanceTracker.deployed();
+  // console.log("balanceTracker deployed to:", balanceTracker.address);
 
   // const Staking = await hre.ethers.getContractFactory("Staking");
   // const staking = await Staking.deploy();
@@ -65,10 +65,10 @@ async function main() {
   // await eventProxy.deployed();
   // console.log("eventProxy deployed to:", eventProxy.address);
 
-  // const Treasury = await hre.ethers.getContractFactory("GnosisSafe");
-  // const treasury = await Treasury.deploy();
-  // await treasury.deployed();
-  // console.log("Treasury deployed to:", treasury.address);
+  const Treasury = await hre.ethers.getContractFactory("GnosisSafe");
+  const treasury = await Treasury.deploy();
+  await treasury.deployed();
+  console.log("Treasury deployed to:", treasury.address);
 
   // const Rewards = await hre.ethers.getContractFactory("Rewards");
   // const rewards = await Rewards.deploy(tokeAddress, signerAddress);

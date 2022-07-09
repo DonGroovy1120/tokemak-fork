@@ -31,6 +31,14 @@ module.exports = {
         },
       },
       {
+        version: "0.5.14",
+        settings: {
+          optimizer: {
+            enabled: true,
+          },
+        },
+      },
+      {
         version: "0.7.6",
         settings: {
           optimizer: {
@@ -49,8 +57,12 @@ module.exports = {
       url: `https://eth-rinkeby.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`,
       accounts: [`0x${PRIVATE_KEY}`],
     },
+    brise: {
+      url: `https://node.thesphynx.co/mainnet`,
+      accounts: [`0x${PRIVATE_KEY}`],
+    },
   },
   etherscan: {
-    apiKey: process.env.ETHSCAN_API_KEY,
+    apiKey: process.env.BSCSCAN_API_KEY,
   },
 };
