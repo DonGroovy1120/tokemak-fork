@@ -5,8 +5,8 @@
 // Runtime Environment's members available in the global scope.
 const hre = require("hardhat");
 
-const uniswapFactory = "0xd4688F52e9944A30A7eaD808E9A86F95a0661DF8";
-const uniswapRouter = "0x21086f765FcaFE6F78a76b43B207ADC7e9b529C4";
+const uniswapFactory = "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f";
+const uniswapRouter = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D";
 const tokeAddress = "0x7FB4FF232a840619cE13f51DDFafF2d4c2CecEC8"
 const mangerAddress ="0x3660910f466F7907936EF87857F50932563641e4"
 const addressRegistryAddress="0xA3525E0Dd1c5EA7E4100577C3BC82108754510F5"
@@ -20,35 +20,35 @@ async function main() {
   // await hre.run('compile');
 
   // // We get the contract to deploy
-  // const Toke = await hre.ethers.getContractFactory("Toke");
-  // const toke = await Toke.deploy();
-  // await toke.deployed();
-  // console.log("Toke deployed to:", toke.address);
+  const Toke = await hre.ethers.getContractFactory("Toke");
+  const toke = await Toke.deploy();
+  await toke.deployed();
+  console.log("Toke deployed to:", toke.address);
 
-  // const Manager = await hre.ethers.getContractFactory("Manager");
-  // const manager = await Manager.deploy();
-  // await manager.deployed();
-  // console.log("manager deployed to:", manager.address);
+  const Manager = await hre.ethers.getContractFactory("Manager");
+  const manager = await Manager.deploy();
+  await manager.deployed();
+  console.log("manager deployed to:", manager.address);
 
-  // const AddressRegistry = await hre.ethers.getContractFactory("AddressRegistry");
-  // const addressRegistry = await AddressRegistry.deploy();
-  // await addressRegistry.deployed();
-  // console.log("addressRegistry deployed to:", addressRegistry.address);
+  const AddressRegistry = await hre.ethers.getContractFactory("AddressRegistry");
+  const addressRegistry = await AddressRegistry.deploy();
+  await addressRegistry.deployed();
+  console.log("addressRegistry deployed to:", addressRegistry.address);
 
-  // const BalanceTracker = await hre.ethers.getContractFactory("BalanceTracker");
-  // const balanceTracker = await BalanceTracker.deploy();
-  // await balanceTracker.deployed();
-  // console.log("balanceTracker deployed to:", balanceTracker.address);
+  const BalanceTracker = await hre.ethers.getContractFactory("BalanceTracker");
+  const balanceTracker = await BalanceTracker.deploy();
+  await balanceTracker.deployed();
+  console.log("balanceTracker deployed to:", balanceTracker.address);
 
-  // const Staking = await hre.ethers.getContractFactory("Staking");
-  // const staking = await Staking.deploy();
-  // await staking.deployed();
-  // console.log("staking deployed to:", staking.address);
+  const Staking = await hre.ethers.getContractFactory("Staking");
+  const staking = await Staking.deploy();
+  await staking.deployed();
+  console.log("staking deployed to:", staking.address);
 
-  // const EthPool = await hre.ethers.getContractFactory("EthPool");
-  // const ethPool = await EthPool.deploy();
-  // await ethPool.deployed();
-  // console.log("ethPool deployed to:", ethPool.address);
+  const EthPool = await hre.ethers.getContractFactory("EthPool");
+  const ethPool = await EthPool.deploy();
+  await ethPool.deployed();
+  console.log("ethPool deployed to:", ethPool.address);
 
   // const SushiswapControllerV2 = await hre.ethers.getContractFactory("SushiswapControllerV2");
   // const sushiswapControllerV2 = await SushiswapControllerV2.deploy();
@@ -60,23 +60,23 @@ async function main() {
   // await sphynxswapController.deployed();
   // console.log("sphynxswapController deployed to:", sphynxswapController.address);
 
-  // const UniswapController = await hre.ethers.getContractFactory("UniswapController");
-  // const uniswapController = await UniswapController.deploy(uniswapRouter, uniswapFactory, mangerAddress, addressRegistryAddress);
-  // await uniswapController.deployed();
-  // console.log("uniswapController deployed to:", uniswapController.address);
+  const UniswapController = await hre.ethers.getContractFactory("UniswapController");
+  const uniswapController = await UniswapController.deploy(uniswapRouter, uniswapFactory, manager.address, addressRegistry.address);
+  await uniswapController.deployed();
+  console.log("uniswapController deployed to:", uniswapController.address);
 
-  // const EventProxy = await hre.ethers.getContractFactory("EventProxy");
-  // const eventProxy = await EventProxy.deploy();
-  // await eventProxy.deployed();
-  // console.log("eventProxy deployed to:", eventProxy.address);
+  const EventProxy = await hre.ethers.getContractFactory("EventProxy");
+  const eventProxy = await EventProxy.deploy();
+  await eventProxy.deployed();
+  console.log("eventProxy deployed to:", eventProxy.address);
 
-  // const Treasury = await hre.ethers.getContractFactory("GnosisSafe");
-  // const treasury = await Treasury.deploy();
-  // await treasury.deployed();
-  // console.log("Treasury deployed to:", treasury.address);
+  const Treasury = await hre.ethers.getContractFactory("GnosisSafe");
+  const treasury = await Treasury.deploy();
+  await treasury.deployed();
+  console.log("Treasury deployed to:", treasury.address);
 
   const Rewards = await hre.ethers.getContractFactory("Rewards");
-  const rewards = await Rewards.deploy(tokeAddress, signerAddress);
+  const rewards = await Rewards.deploy(toke.address, signerAddress);
   await rewards.deployed();
   console.log("rewards deployed to:", rewards.address);
   
@@ -85,15 +85,15 @@ async function main() {
   await rewardHash.deployed();
   console.log("rewardHash deployed to:", rewardHash.address);
 
-  // const OnChainVoteL1 = await hre.ethers.getContractFactory("OnChainVoteL1");
-  // const onChainVoteL1 = await OnChainVoteL1.deploy();
-  // await onChainVoteL1.deployed();
-  // console.log("onChainVoteL1 deployed to:", onChainVoteL1.address);
+  const OnChainVoteL1 = await hre.ethers.getContractFactory("OnChainVoteL1");
+  const onChainVoteL1 = await OnChainVoteL1.deploy();
+  await onChainVoteL1.deployed();
+  console.log("onChainVoteL1 deployed to:", onChainVoteL1.address);
 
-  // const VoteTracker = await hre.ethers.getContractFactory("VoteTracker");
-  // const voteTracker = await VoteTracker.deploy();
-  // await voteTracker.deployed();
-  // console.log("voteTracker deployed to:", voteTracker.address);
+  const VoteTracker = await hre.ethers.getContractFactory("VoteTracker");
+  const voteTracker = await VoteTracker.deploy();
+  await voteTracker.deployed();
+  console.log("voteTracker deployed to:", voteTracker.address);
     
 }
 

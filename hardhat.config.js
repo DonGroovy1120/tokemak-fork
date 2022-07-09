@@ -62,7 +62,22 @@ module.exports = {
       accounts: [`0x${PRIVATE_KEY}`],
     },
   },
+  // etherscan: {
+  //   apiKey: {
+  //     brise: process.env.ETHSCAN_API_KEY
+  //   },
+  //   customChains: [
+  //     {
+  //       network: "brise",
+  //       chainId: 32520,
+  //       urls: {
+  //         apiURL: "https://brisescan.com/api",
+  //         browserURL: "https://brisescan.com"
+  //       }
+  //     }
+  //   ]
+  // },
   etherscan: {
-    apiKey: process.env.BSCSCAN_API_KEY,
+    apiKey: process.env.ETHSCAN_API_KEY,
   },
 };
