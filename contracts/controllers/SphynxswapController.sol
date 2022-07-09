@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
-import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol";
+import "@sphynxswap/swap-core/contracts/interfaces/ISphynxFactory.sol";
 import "./BaseController.sol";
 
 contract SphynxswapController is BaseController {
@@ -20,11 +20,11 @@ contract SphynxswapController is BaseController {
     // solhint-disable-next-line var-name-mixedcase
     IUniswapV2Router02 public immutable UNISWAP_ROUTER;
     // solhint-disable-next-line var-name-mixedcase
-    IUniswapV2Factory public immutable UNISWAP_FACTORY;
+    ISphynxFactory public immutable UNISWAP_FACTORY;
 
     constructor(
         IUniswapV2Router02 router,
-        IUniswapV2Factory factory,
+        ISphynxFactory factory,
         address manager,
         address _addressRegistry
     ) public BaseController(manager, _addressRegistry) {

@@ -4350,8 +4350,8 @@
       ]
     },
     "/home/dev1121/work/sphynx/tokemak-fork/contracts/controllers/SphynxswapController.sol": {
-      "lastModificationDate": 1657352385324,
-      "contentHash": "b3078d98f35d57c479afad7b2495d1e4",
+      "lastModificationDate": 1657355426379,
+      "contentHash": "a839f93da62dc6876a0c56490a8c5075",
       "sourceName": "contracts/controllers/SphynxswapController.sol",
       "solcConfig": {
         "version": "0.6.11",
@@ -4389,7 +4389,7 @@
         "@openzeppelin/contracts/math/SafeMath.sol",
         "@openzeppelin/contracts/utils/Address.sol",
         "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol",
-        "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol",
+        "@sphynxswap/swap-core/contracts/interfaces/ISphynxFactory.sol",
         "./BaseController.sol"
       ],
       "versionPragmas": [
@@ -4452,6 +4452,48 @@
         "SecuredTokenTransfer",
         "SelfAuthorized",
         "SignatureDecoder"
+      ]
+    },
+    "/home/dev1121/work/sphynx/tokemak-fork/node_modules/@sphynxswap/swap-core/contracts/interfaces/ISphynxFactory.sol": {
+      "lastModificationDate": 1657354929136,
+      "contentHash": "250609657c39fa2c00174909f861833d",
+      "sourceName": "@sphynxswap/swap-core/contracts/interfaces/ISphynxFactory.sol",
+      "solcConfig": {
+        "version": "0.7.6",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.5.0"
+      ],
+      "artifacts": [
+        "ISphynxFactory"
       ]
     }
   }

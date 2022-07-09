@@ -5,11 +5,11 @@
 // Runtime Environment's members available in the global scope.
 const hre = require("hardhat");
 
-const uniswapFactory = "0x1f98431c8ad98523631ae4a59f267346ea31f984";
-const uniswapRouter = "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45";
-const tokeAddress = "0x67d822994C698cC8E57541d89B97763bbd069F73"
-const mangerAddress ="0x32c438dc05C2e84a3236b5E63CBdC720b0ED2787"
-const addressRegistryAddress="0x55D1B1EBa3aDE428565CB76E8C2154f46ea831C1"
+const uniswapFactory = "0xd4688F52e9944A30A7eaD808E9A86F95a0661DF8";
+const uniswapRouter = "0x21086f765FcaFE6F78a76b43B207ADC7e9b529C4";
+const tokeAddress = "0x7FB4FF232a840619cE13f51DDFafF2d4c2CecEC8"
+const mangerAddress ="0x3660910f466F7907936EF87857F50932563641e4"
+const addressRegistryAddress="0xA3525E0Dd1c5EA7E4100577C3BC82108754510F5"
 const signerAddress = "0x912d97c66457420c4F23561f42c592EBa3c9cf48"
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -55,6 +55,11 @@ async function main() {
   // await sushiswapControllerV2.deployed();
   // console.log("sushiswapControllerV2 deployed to:", sushiswapControllerV2.address);
 
+  // const SphynxswapController = await hre.ethers.getContractFactory("SphynxswapController");
+  // const sphynxswapController = await SphynxswapController.deploy(uniswapRouter, uniswapFactory, mangerAddress, addressRegistryAddress);
+  // await sphynxswapController.deployed();
+  // console.log("sphynxswapController deployed to:", sphynxswapController.address);
+
   // const UniswapController = await hre.ethers.getContractFactory("UniswapController");
   // const uniswapController = await UniswapController.deploy(uniswapRouter, uniswapFactory, mangerAddress, addressRegistryAddress);
   // await uniswapController.deployed();
@@ -65,20 +70,20 @@ async function main() {
   // await eventProxy.deployed();
   // console.log("eventProxy deployed to:", eventProxy.address);
 
-  const Treasury = await hre.ethers.getContractFactory("GnosisSafe");
-  const treasury = await Treasury.deploy();
-  await treasury.deployed();
-  console.log("Treasury deployed to:", treasury.address);
+  // const Treasury = await hre.ethers.getContractFactory("GnosisSafe");
+  // const treasury = await Treasury.deploy();
+  // await treasury.deployed();
+  // console.log("Treasury deployed to:", treasury.address);
 
-  // const Rewards = await hre.ethers.getContractFactory("Rewards");
-  // const rewards = await Rewards.deploy(tokeAddress, signerAddress);
-  // await rewards.deployed();
-  // console.log("rewards deployed to:", rewards.address);
+  const Rewards = await hre.ethers.getContractFactory("Rewards");
+  const rewards = await Rewards.deploy(tokeAddress, signerAddress);
+  await rewards.deployed();
+  console.log("rewards deployed to:", rewards.address);
   
-  // const RewardsHash = await hre.ethers.getContractFactory("RewardHash");
-  // const rewardHash = await RewardsHash.deploy();
-  // await rewardHash.deployed();
-  // console.log("rewardHash deployed to:", rewardHash.address);
+  const RewardsHash = await hre.ethers.getContractFactory("RewardHash");
+  const rewardHash = await RewardsHash.deploy();
+  await rewardHash.deployed();
+  console.log("rewardHash deployed to:", rewardHash.address);
 
   // const OnChainVoteL1 = await hre.ethers.getContractFactory("OnChainVoteL1");
   // const onChainVoteL1 = await OnChainVoteL1.deploy();
