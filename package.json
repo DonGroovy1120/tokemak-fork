@@ -23,6 +23,7 @@
     "@nomiclabs/hardhat-web3": "^2.0.0",
     "@openzeppelin/contracts": "^3.4.0",
     "@openzeppelin/contracts-upgradeable": "^3.4.0",
+    "@rari-capital/solmate": "^6.4.0",
     "@sphynxswap/swap-core": "^0.1.0",
     "@sushiswap/core": "^1.4.2",
     "@uniswap/v2-periphery": "^1.1.0-beta.0",
